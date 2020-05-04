@@ -23,8 +23,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 	 * @param args 
 	 */
 	public static void main(String[] args) {
-		
-		
+
+		/**
+		 *  主方法启动入口
+		 */
 		SpringApplication.run(SpringBootStart.class, args);
 		
 	}
