@@ -1,0 +1,65 @@
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+      <groupId>com.yx.cdss.extract</groupId>
+      <artifactId>emr-cdss-extract</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>cdss-extract-job</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>cdss-extract-job</name>
+  <url>http://maven.apache.org</url>
+  <packaging>jar</packaging>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+	<dependency>
+	    <groupId>com.geccocrawler</groupId>
+	    <artifactId>gecco</artifactId>
+	    <version>1.0.8</version>
+	</dependency>
+    <dependency>
+		<groupId>commons-logging</groupId>
+		<artifactId>commons-logging</artifactId>
+		<version>1.2</version>
+	</dependency>
+  </dependencies>
+  
+  <build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+				<archive>
+				<manifest>
+				<addClasspath>true</addClasspath>
+				<classpathPrefix>lib/</classpathPrefix>
+				<mainClass>com.innopro.cloud.MainActor</mainClass>-->入口类名
+				</manifest>
+				</archive>
+				</configuration>
+			</plugin>
+			
+			<!-- 3、添加Spring boot的插件 -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			
+			
+		</plugins>
+	</build>
+  
+</project>

@@ -1,0 +1,27 @@
+#Spring
+spring:
+  application:
+    name: cdss-extract-provider
+
+  #profile
+  profiles:
+    active: dev
+
+  #aop
+  aop:
+    auto: true
+    proxy-target-class: true
+
+  #jackson
+  jackson:
+    time-zone: GMT-6
+
+#mybatis
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  type-aliases-package: com.yx.cdss.extract.model.mapper
+
+#sql
+logging:
+  level:
+    com.yx.cdss: debug

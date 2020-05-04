@@ -1,0 +1,15 @@
+#server
+server:
+  port: 8080
+  servlet: 
+     context-path: /JVM
+
+
+#logging
+logging:
+  config: classpath:logback.xml
+
+#jasypt
+jasypt:
+  encryptor:
+    password: 7T0sU6q%XY$Al39LP4BJUgwd$hGy*Fk81
