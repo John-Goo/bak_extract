@@ -1,15 +1,12 @@
-package com.yx.cdss.extract.provider.serice.impl;
-
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
+package com.yx.cdss.extract.provider.serice.dict;
 
 import com.yx.cdss.extract.model.entity.DictDrug;
 import com.yx.cdss.extract.model.entity.DictDrugExample;
 import com.yx.cdss.extract.model.mapper.DictDrugMapper;
-import com.yx.cdss.extract.provider.serice.dict.DictionaryService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @Service("dictionaryService")
 public class DictionaryServiceImpl implements  DictionaryService{ 

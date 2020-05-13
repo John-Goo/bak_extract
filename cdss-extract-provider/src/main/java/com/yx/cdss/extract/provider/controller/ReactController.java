@@ -59,8 +59,6 @@ public class ReactController {
 		BeanCopyUtil.copyBean(ret, cnmoBo);
 		JSONObject json1 = JSONObject.fromObject(ret);
 		System.out.println(json1.toString());
-	   
-		
 		return  null;
 	}
 	
