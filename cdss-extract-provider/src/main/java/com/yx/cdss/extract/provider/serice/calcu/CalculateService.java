@@ -10,6 +10,14 @@ public interface CalculateService {
      * @param dataPacket
      * @return
      */
-    public Integer caculate(String dataPacket,String batchT);
+    public Integer calculate(String dataPacket,String batchT);
+
+    /**
+     * 查询数据
+     *
+     * @param dataPacket
+     * @param userId
+     */
+    public void read(String dataPacket,String userId);
 
 }

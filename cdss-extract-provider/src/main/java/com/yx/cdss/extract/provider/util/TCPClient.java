@@ -10,7 +10,8 @@ public class TCPClient {
 
     final static ThreadLocal<Socket> tl = new ThreadLocal<>();
 
-    final static String _IP = "127.0.0.1";
+    final static String _IP = "192.168.0.11";
+    //final static String _IP = "localhost";
     final static int _PORT = 60000;
 
 

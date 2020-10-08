@@ -14,14 +14,13 @@ import java.util.List;
 
 public class CuratorUtil {
 
-    // zk 节点ip和port
-    final static String _ZK_IPs = "92.168.0.71:2181,192.168.0.72:2181,192.168.0.73:2181";
+    // zk 节点ip和port ,192.168.0.72:2181,192.168.0.73:2181
+    final static String _ZK_IPs = "192.168.0.71:2181,192.168.0.72:2181,192.168.0.73:2181";
     /**
      * 创建Curator 客户端
      * @return
      */
     public static CuratorFramework newClient(String rootPath) {
-        CuratorFramework client=null;
         ACLProvider aclProvider = new ACLProvider() {
             private List<ACL> acl;
 
@@ -51,11 +50,11 @@ public class CuratorUtil {
         };
         String scheme = "digest";
         byte[] auth = "admin:admin".getBytes();
-        int connectionTimeoutMs = 5000;
+        int connectionTimeoutMs = 10*1000;
         byte[] defaultData = "默认数据".getBytes();
-        int maxCloseWaitMs = 5000;
+        int maxCloseWaitMs = 1*1000;
        // String namespace = "testlock";
-        RetryPolicy retryPolicy = new RetryNTimes(Integer.MAX_VALUE, 5000);
+        RetryPolicy retryPolicy = new RetryNTimes(Integer.MAX_VALUE, 1000);
         CuratorFramework clientinit = CuratorFrameworkFactory
                 .builder()
                 .aclProvider(aclProvider)
@@ -68,8 +67,7 @@ public class CuratorUtil {
                 .retryPolicy(retryPolicy)
                 .build();
         clientinit.start();
-        client = clientinit;
-        return client;
+        return clientinit;
     }
 
 

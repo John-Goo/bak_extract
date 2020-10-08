@@ -53,6 +53,7 @@ public class DeadLockController {
 
 		@Override
 		public void run() {
+
 			while (true) {
 				synchronized (r1) {
 					System.out.println("=== 线程[" + Thread.currentThread().getName() + "-"

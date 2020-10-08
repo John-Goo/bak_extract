@@ -25,3 +25,4 @@ mybatis:
 logging:
   level:
     com.yx.cdss: debug
+

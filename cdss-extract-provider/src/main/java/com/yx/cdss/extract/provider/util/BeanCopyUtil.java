@@ -3,8 +3,10 @@ package com.yx.cdss.extract.provider.util;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import com.yx.cdss.extract.model.entity.DictDrug;
 import org.apache.commons.beanutils.PropertyUtils;
 
 
@@ -52,4 +54,54 @@ public class BeanCopyUtil {
 			e.printStackTrace();
 		}
 	}
+
+
+	public static Object copyBean(Object source, Class destCls){
+		Object dest = null;
+		try {
+			dest = destCls.newInstance();
+			PropertyUtils.copyProperties(dest, source);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException | InstantiationException e) {
+			e.printStackTrace();
+		}
+		return  dest;
+	}
+
+	public static void main(String[] args) {
+		int i = 10;
+		DictDrug dd  = new DictDrug();
+		dd.setDrugName("阿莫本林-VZ-");
+		dd.setDrugCode("800-"+i);
+		dd.setApprovalNumber("88888888888888-"+i);
+		dd.setNationalDrugApproval("FFFFFFFFFFFFF-"+i);
+		dd.setDrugSpecifications("AMOBENGLING-"+i);
+		dd.setPackUnit("克");
+		dd.setSpecificationsQty(100);
+		dd.setSpecificationsUnit("--");
+		dd.setDrugType("中药");
+		dd.setExtractTime(new Date());
+		dd.setAttribute1("备注1");
+		dd.setAttribute2("备注2");
+		dd.setAttribute3("备注3");
+		dd.setAttribute4("备注4");
+
+		DictDrug dictDrug = (DictDrug) copyBean(dd,DictDrug.class);
+		System.out.println(dd);
+		System.out.println(dictDrug.getExtractTime());
+
+
+
+	}
+
+
+
+
+
+
+
+
 }

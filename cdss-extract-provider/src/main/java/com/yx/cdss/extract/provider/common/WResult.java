@@ -1,6 +1,6 @@
 package com.yx.cdss.extract.provider.common;
 
-public class Result<T> {
+public class WResult<T> implements Cloneable{
     // 错误代码，默认0-未出错
     private Integer errCode = 0;
     // 错误消息，默认success-成功
@@ -37,4 +37,11 @@ public class Result<T> {
     public void setErrMsg(String errMsg) {
         this.errMsg = errMsg;
     }
+
+    public static WResult newInstance() throws CloneNotSupportedException {
+        System.out.println(":"+prototype);
+        return (WResult) prototype.clone();
+    }
+
+    protected final static WResult prototype = new WResult();
 }

@@ -8,6 +8,17 @@ public class RequestBo implements SensorBo{
 	private String name;
 	private Integer age;
 	private String addr;
+
+	public <T> T result(Class<?> cls)  {
+		try {
+			return (T)cls.newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	public String getName() {
 		return name;
@@ -45,6 +56,9 @@ public class RequestBo implements SensorBo{
 	public static void main(String[] args) {
 		int j =new Random().nextInt(1000);
 		System.out.println(j);;
+		RequestBo bo = new RequestBo();
+		Student stu = bo.result(Student.class);
+		System.out.println(stu);
 	}
 	
 	

@@ -7,6 +7,7 @@ import java.util.Random;
 
 import javax.annotation.Resource;
 
+import com.yx.cdss.extract.provider.common.WResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yx.cdss.extract.model.entity.DictDrug;
 import com.yx.cdss.extract.provider.bo.QueryDictDrugReq;
-import com.yx.cdss.extract.provider.common.Result;
 import com.yx.cdss.extract.provider.common.lock.LockThread1;
 import com.yx.cdss.extract.provider.common.lock.LockThread2;
 import com.yx.cdss.extract.provider.common.lock.MyResource;
@@ -36,7 +36,7 @@ public class DictController {
 	
 	@ApiOperation(value = "案例一：选择垃圾收集器")
 	@RequestMapping(value = "/selectCollector", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-	public Result selectCollector(@RequestParam String describe) {
+	public WResult selectCollector(@RequestParam String describe) {
 		System.out.println("接收到参数===>"+describe);
 		List<DictDrug> ddList = dictionaryService.queryDictDrug("800-1");
 		final DictDrug dd = ddList.get(0);
@@ -76,7 +76,7 @@ public class DictController {
 		t1.start();
 		t2.start();
 		t3.start();
-		Result result  = new Result();
+		WResult result  = new WResult();
 		result.setErrMsg("案例一：选择垃圾收集器");
 		return result;
 	}
@@ -87,7 +87,7 @@ public class DictController {
 	
 	@ApiOperation(value = "案例二：生成内存快照dump文件" )
 	@RequestMapping(value = "/generateMemDump", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-	public Result generateMemDump(@RequestParam String describe) {
+	public WResult generateMemDump(@RequestParam String describe) {
 		System.out.println("接收到参数===>"+describe);
 		List newDictDrugList = new ArrayList();
 		boolean exit = false;
@@ -102,14 +102,14 @@ public class DictController {
 			newDictDrugList.add(dest);
 		    //exit=true;
 		}
-		return new Result();
+		return new WResult();
 	}
 	
 	
 	
 	@ApiOperation(value = "案例三：频繁full GC",position = 2 )
 	@RequestMapping(value = "/simulateFrequentGC", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-	public Result simulateFrequentGC(@RequestParam String describe) {
+	public WResult simulateFrequentGC(@RequestParam String describe) {
 		System.out.println("接收到参数===>"+describe);
 		final List<DictDrug> ddList = dictionaryService.queryDictDrug("800-1");
 		final DictDrug dd = ddList.get(0);
@@ -147,13 +147,13 @@ public class DictController {
 		});
 		t1.start();
 		t2.start();
-		return new Result();
+		return new WResult();
 	}
 	
 	
 	@ApiOperation(value = "案例四：线程死锁检测方法 ",position = 3 )
 	@RequestMapping(value = "/simulateDeadLock", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-	public Result simulateDeadLock(@RequestParam String describe) {
+	public WResult simulateDeadLock(@RequestParam String describe) {
 		System.out.println("接收到参数===>"+describe);
 		MyResource r1 = new MyResource(888);
 		MyResource r2 = new MyResource(999);
@@ -163,18 +163,21 @@ public class DictController {
 		t2.setName("ThreadLock2");
 		t1.start();
 		t2.start();
-		return new Result();
+		return new WResult();
 	}
 	
 	
-	@ApiOperation(value = "查询字典-药物",position = 4 )
+	@ApiOperation(value = "查询字典888-药物",position = 4 )
 	@RequestMapping(value = "/queryDictDrug", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-	public Result<List<DictDrug>> queryDictDrug(@RequestBody QueryDictDrugReq requestBo) {
+	public WResult<List<DictDrug>> queryDictDrug(@RequestBody QueryDictDrugReq requestBo) {
 		System.out.println("访问线程："+Thread.currentThread().getId());
-		Result result = new Result();
+		WResult result = new WResult();
 		System.out.println(">>>接收到参数："+requestBo.getDrugCode());
 		List<DictDrug> ddList = dictionaryService.queryDictDrug(requestBo.getDrugCode());
 		result.setValue(ddList);
+		// Adapter Pattern适应于接口不兼容的问题，采用适配器模式来进行转换
+		// 一个接口到另外一个接口，实现
+
 		return result;
 	}
 	
@@ -182,7 +185,7 @@ public class DictController {
 	
 	@ApiOperation(value = "插入字典-药物",position = 5 )
 	@RequestMapping(value = "/insertDictDrug", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-	public Result insertDictDrug(@RequestParam Integer count) {
+	public WResult insertDictDrug(@RequestParam Integer count) {
 		Long start = new Date().getTime();
 		System.out.println("接收到参数："+count);
 		int insertCnt = 100;
@@ -196,7 +199,7 @@ public class DictController {
 		Long end = new Date().getTime();
 		Long total = (end - start)/1000;
 		
-		Result result = new Result();
+		WResult result = new WResult();
 		result.setValue("插入数据库条数："+insertCnt+",消耗时间（秒）："+total);
 		return result;
 	}
@@ -204,8 +207,8 @@ public class DictController {
 	
 	@ApiOperation(value = "==>演示数据库连接池")
 	@RequestMapping(value = "/datasourcePool", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-	public Result<List<DictDrug>> datasourcePool(@RequestParam String describe) {
-		Result<List<DictDrug>> result = new Result<List<DictDrug>>();
+	public WResult<List<DictDrug>> datasourcePool(@RequestParam String describe) {
+		WResult<List<DictDrug>> result = new WResult<List<DictDrug>>();
 		System.out.println("===>接收到参数:"+describe);
 		for(int i=0;i<100;i++) {
 			new Thread(()->{
@@ -226,7 +229,7 @@ public class DictController {
 
 class MyThread implements Runnable{
 	
-	private String drugCode;
+	private volatile  String drugCode;
 	
     public MyThread(String drugCode) {
     	this.drugCode = drugCode;
