@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="cdss-extract-model" />
+        <module name="cdss-extract-provider" />
+        <module name="cdss-extract-pojo" />
+        <module name="cdss-extract-job" />
+        <module name="cdss-extract-api" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="cdss-extract-api" target="1.8" />
+      <module name="cdss-extract-job" target="1.8" />
+      <module name="cdss-extract-model" target="1.8" />
+      <module name="cdss-extract-pojo" target="1.8" />
+      <module name="cdss-extract-provider" target="1.8" />
+      <module name="emr-cdss-extract" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="cdss-extract-api" options="-parameters" />
+      <module name="cdss-extract-job" options="-parameters" />
+      <module name="cdss-extract-model" options="-parameters" />
+      <module name="cdss-extract-pojo" options="-parameters" />
+      <module name="cdss-extract-provider" options="-parameters" />
+    </option>
+  </component>
+</project>

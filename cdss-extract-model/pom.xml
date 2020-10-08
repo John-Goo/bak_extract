@@ -69,8 +69,15 @@
 	         <artifactId>spring-boot-starter-test</artifactId>
 	         <scope>test</scope>
 	     </dependency>
-	     
-	     <!-- Json jar包 -->
+          <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus -->
+          <dependency>
+              <groupId>com.baomidou</groupId>
+              <artifactId>mybatis-plus</artifactId>
+              <version>3.0-RELEASE</version>
+          </dependency>
+
+
+      <!-- Json jar包 -->
 	     <dependency>
 			<groupId>net.sf.json-lib</groupId>
 			<artifactId>json-lib</artifactId>

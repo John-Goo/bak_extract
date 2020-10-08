@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/cdss-extract-api/cdss-extract-api.iml" filepath="$PROJECT_DIR$/cdss-extract-api/cdss-extract-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cdss-extract-job/cdss-extract-job.iml" filepath="$PROJECT_DIR$/cdss-extract-job/cdss-extract-job.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cdss-extract-model/cdss-extract-model.iml" filepath="$PROJECT_DIR$/cdss-extract-model/cdss-extract-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cdss-extract-pojo/cdss-extract-pojo.iml" filepath="$PROJECT_DIR$/cdss-extract-pojo/cdss-extract-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cdss-extract-provider/cdss-extract-provider.iml" filepath="$PROJECT_DIR$/cdss-extract-provider/cdss-extract-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/emr-cdss-extract.iml" filepath="$PROJECT_DIR$/.idea/emr-cdss-extract.iml" />
+    </modules>
+  </component>
+</project>
