@@ -5,6 +5,8 @@ package com.yx.cdss.extract.provider.filter;
  * Created By 开源学社
  ==========================================================================*/
 
+import com.google.gson.JsonObject;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -47,7 +49,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         if (jwtUser == null) {
             throw new RuntimeException("JWT Token is incorrect");
         }
-
+        System.out.println("==用户信息："+JSONObject.fromObject(jwtUser).toString());
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         System.out.println(handlerMethod.getMethod().getName()+",");
         Method method = handlerMethod.getMethod();
