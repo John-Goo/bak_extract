@@ -5,7 +5,6 @@ package com.yx.cdss.extract.provider.filter;
  * Created By 开源学社
  ==========================================================================*/
 
-import com.google.gson.JsonObject;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,7 +23,7 @@ import java.lang.reflect.Method;
  * @Desc: TODO
  * @history v1.0
  */
-@Component
+//@Component
 public class AuthenticationInterceptor implements HandlerInterceptor {
 
     @Autowired
@@ -38,7 +37,6 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             return true;
         }
         String header = request.getHeader("Authorisation");
-
 
         if (header == null || !header.startsWith("Token ")) {
             throw new RuntimeException("JWT Token is missing");
