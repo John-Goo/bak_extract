@@ -18,10 +18,10 @@ import feign.gson.GsonEncoder;
  */
 public class TestFeign {
     public static void main(String[] args) {
-        Feign.builder()
+       HelloClient client =  Feign.builder()
                 .encoder(new GsonEncoder())
                 .decoder(new GsonDecoder())
-                .target(Student.class, "https://api.github.com");
+                .target(HelloClient.class, "https://api.github.com");
 
 
     }
