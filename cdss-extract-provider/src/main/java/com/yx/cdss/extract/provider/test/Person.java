@@ -7,30 +7,38 @@ package com.yx.cdss.extract.provider.test;
 
 import lombok.Data;
 
-import javax.annotation.sql.DataSourceDefinition;
-
 /**
  * @author John Goo
  * @version 1.0
- * @ClassName: Student
+ * @ClassName: Person
  * @Desc: TODO
  * @history v1.0
  */
 @Data
-public class Student {
+public class Person {
+
     private String idCard;
     private String name;
     private int age;
     private String addr;
 
-    public Student(){
+    public Person() {
     }
 
-    public Student(String id, String name, int age, String addr) {
-        this.idCard = id;
+    public Person(String idCard, String name, int age, String addr) {
+        this.idCard = idCard;
         this.name = name;
         this.age = age;
         this.addr = addr;
     }
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "idCard='" + idCard + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", addr='" + addr + '\'' +
+                '}';
+    }
 }

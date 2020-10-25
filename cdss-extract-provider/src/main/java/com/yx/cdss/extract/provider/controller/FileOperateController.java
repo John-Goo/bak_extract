@@ -7,6 +7,9 @@
 package com.yx.cdss.extract.provider.controller;
 
 import com.yx.cdss.extract.provider.bo.Res;
+import com.yx.cdss.extract.provider.common.WResult;
+import com.yx.cdss.extract.provider.test.Person;
+import com.yx.cdss.extract.provider.test.Student;
 import com.yx.cdss.extract.provider.util.WFile;
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
@@ -18,6 +21,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,6 +46,20 @@ import java.util.Map;
  */
 @RestController
 public class FileOperateController {
+
+
+
+	@PostMapping("/recv")
+	public WResult<Person> recv(@RequestBody Student student){
+		System.out.println(">>>　接收到参数："+student);
+		System.out.println("-------  入库操作 ---------");
+		Person person = new Person("411528198709015894","谷海江",21,"深圳");
+		WResult result = WResult.newInstance();
+		result.ok(person);
+		return result;
+	}
+
+
 
 
 	@PostMapping("/upload")

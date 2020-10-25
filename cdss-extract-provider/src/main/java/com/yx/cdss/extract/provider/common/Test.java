@@ -20,7 +20,7 @@ public class Test {
         try {
             DictDrug dictDrug = new DictDrug();
             WResult<DictDrug> result = WResult.newInstance();
-            result.setValue(dictDrug);
+            result.ok(dictDrug);
 
             JSONObject jsonObj = JSONObject.fromObject(result);
             System.out.println(jsonObj);

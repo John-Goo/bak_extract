@@ -22,12 +22,10 @@ public class FastjsonDemo {
         ContactInfo contactInfo = new ContactInfo("13828725750",
                 "广东省","深圳市","南山区");
         Student stu = new Student("999","John Goo",23,"深圳");
-        stu.setContactInfo(contactInfo);
         System.out.println("&addr1:"+contactInfo);
         String str =  JSON.toJSONString(stu);
         Student stu1 = JSON.parseObject(str,Student.class);
         System.out.println(stu1.getAddr());
-        System.out.println(stu1.getContactInfo());
         String str2 = JSON.toJSONString(stu1);
         System.out.println("str1:"+str2);
         JSONObject jsonObject = JSON.parseObject(str2);

@@ -34,7 +34,7 @@ public class SwaggerConfig {
 		Docket docket = new Docket(DocumentationType.SWAGGER_2)
         .apiInfo(testApiInfo())
         .select()
-        .apis(RequestHandlerSelectors.basePackage("com.yx.cdss.extract.provide"))
+        .apis(RequestHandlerSelectors.basePackage("com.yx.cdss.extract.provider"))
         .paths(PathSelectors.any())
         .build();
 		;

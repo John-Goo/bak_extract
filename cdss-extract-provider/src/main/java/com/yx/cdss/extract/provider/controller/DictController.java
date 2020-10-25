@@ -77,7 +77,7 @@ public class DictController {
 		t2.start();
 		t3.start();
 		WResult result  = new WResult();
-		result.setErrMsg("案例一：选择垃圾收集器");
+		result.failer("案例一：选择垃圾收集器");
 		return result;
 	}
 	
@@ -174,7 +174,7 @@ public class DictController {
 		WResult result = new WResult();
 		System.out.println(">>>接收到参数："+requestBo.getDrugCode());
 		List<DictDrug> ddList = dictionaryService.queryDictDrug(requestBo.getDrugCode());
-		result.setValue(ddList);
+		result.ok(ddList);
 		// Adapter Pattern适应于接口不兼容的问题，采用适配器模式来进行转换
 		// 一个接口到另外一个接口，实现
 
@@ -200,7 +200,7 @@ public class DictController {
 		Long total = (end - start)/1000;
 		
 		WResult result = new WResult();
-		result.setValue("插入数据库条数："+insertCnt+",消耗时间（秒）："+total);
+		result.ok("插入数据库条数："+insertCnt+",消耗时间（秒）："+total);
 		return result;
 	}
 	
@@ -217,7 +217,7 @@ public class DictController {
 				System.out.println(">>> 当前执行线程："+Thread.currentThread().getId()+",业务参数："+prefix);
 				final List<DictDrug> ddList = dictionaryService.queryDictDrug(prefix);
 				System.out.println("===>查询结果："+ddList.size());
-				result.setValue(ddList);
+				result.ok(ddList);
 			}).start(); 
 		}
 		
