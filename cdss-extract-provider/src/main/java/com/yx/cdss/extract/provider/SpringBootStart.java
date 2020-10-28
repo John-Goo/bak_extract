@@ -26,8 +26,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 		/**
 		 *  主方法启动入口
-		 */
+				*/
 		SpringApplication.run(SpringBootStart.class, args);
-		
+
 	}
 }
