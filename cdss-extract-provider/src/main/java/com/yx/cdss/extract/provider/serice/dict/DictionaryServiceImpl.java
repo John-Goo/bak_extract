@@ -21,8 +21,8 @@ public class DictionaryServiceImpl implements  DictionaryService{
 			 criteria = new DictDrugExample();
 			criteria.createCriteria().andDrugCodeEqualTo(drugCode);
 		}
-		DictDrug dd = dictDrugMapper.selectById(1l);
-		System.out.println(" dd:"+dd);
+		//DictDrug dd = dictDrugMapper.selectById(1l);
+		//System.out.println(" dd:"+dd);
 		
 		return dictDrugMapper.selectByExample(criteria);
 	}
