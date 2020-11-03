@@ -23,9 +23,9 @@ import java.util.TimerTask;
  * @history v1.0
  */
 @Component
-public class TimmerDelay {
+public class TimmerScheduler {
     // java配置
-    public TimmerDelay(){
+    public TimmerScheduler(){
         System.out.println("============== JavaConfig ===========");
         timer4();
     }
