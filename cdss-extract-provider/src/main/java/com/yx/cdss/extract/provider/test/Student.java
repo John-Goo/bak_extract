@@ -33,4 +33,19 @@ public class Student {
         this.addr = addr;
     }
 
+    public Student(String id, String name) {
+        this.idCard = id;
+        this.name = name;
+
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "idCard='" + idCard + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", addr='" + addr + '\'' +
+                '}';
+    }
 }

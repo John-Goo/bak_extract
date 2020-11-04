@@ -3,12 +3,10 @@ package com.yx.cdss.extract.provider;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 
 // com.yx.cdss.extract.provider.SpringBootStart
 @MapperScan("com.yx.cdss.extract.model.mapper")
-@EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages="com.yx.cdss.extract.provider")
  public class SpringBootStart {
 	

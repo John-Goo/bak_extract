@@ -12,9 +12,9 @@
   <packaging>jar</packaging>
   
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	  <redisson.version>3.8.2</redisson.version>
   </properties>
-  
 
   <dependencies>
     <dependency>
@@ -161,11 +161,14 @@
 		  <version>1.18.8</version>
 	  </dependency>
 	  <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-config -->
+      <!--
 	  <dependency>
 		  <groupId>com.alibaba.cloud</groupId>
 		  <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
 		  <version>2.1.2.RELEASE</version>
 	  </dependency>
+	  -->
+
 
 	  <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-discovery -->
 	  <!--
@@ -180,6 +183,13 @@
 		  <artifactId>redisson</artifactId>
 		  <version>3.8.0</version>
 	  </dependency>
+
+	  <dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter-data-redis</artifactId>
+	  </dependency>
+
+
 
   </dependencies>
   

@@ -20,6 +20,9 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,14 +50,25 @@ import java.util.Map;
 @RestController
 public class FileOperateController {
 
+	@Autowired
+    private RedisTemplate redisTemplate;
 
 
 	@PostMapping("/recv")
 	public WResult<Person> recv(@RequestBody Student student){
+		Map<String,Student> stuMap = new HashMap<>();
+		stuMap.put("name1",new Student("90018001","John1"));
+		stuMap.put("name2",new Student("90018002","John2"));
 		System.out.println(">>>　接收到参数："+student);
 		System.out.println("-------  入库操作 ---------");
 		Person person = new Person("411528198709015894","谷海江",21,"深圳");
 		WResult result = WResult.newInstance();
+		HashOperations hps = redisTemplate.opsForHash();
+		hps.putAll("stu",stuMap);
+		System.out.println("h1:"+hps.get("stu","name1"));
+		hps.put("stu","name3",new Student("90018003","John3"));
+		System.out.println("h3:"+hps.get("stu","name3"));
+		System.out.println();
 		result.ok(person);
 		return result;
 	}
