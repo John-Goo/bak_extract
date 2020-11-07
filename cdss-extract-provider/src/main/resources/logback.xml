@@ -86,7 +86,7 @@
        level:用来设置打印级别 默认继承上级（root）
        additivity:是否向上级logger传递打印信息。默认是true。 如果设置了自定义内容建议设置为false，避免重复打印
     -->
-    <logger name="com.cisdi.steel" level="debug" additivity="true"/>
+    <logger name="com.yx.cdss" level="debug" additivity="true"/>
     <!--默认开发配置-->
     <root level="info">
         <appender-ref ref="console"/>

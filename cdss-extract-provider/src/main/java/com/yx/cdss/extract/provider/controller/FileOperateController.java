@@ -68,7 +68,8 @@ public class FileOperateController {
 		System.out.println("h1:"+hps.get("stu","name1"));
 		hps.put("stu","name3",new Student("90018003","John3"));
 		System.out.println("h3:"+hps.get("stu","name3"));
-		System.out.println();
+		Student stu = (Student) hps.get("stu","name4");
+		System.out.println(stu);
 		result.ok(person);
 		return result;
 	}

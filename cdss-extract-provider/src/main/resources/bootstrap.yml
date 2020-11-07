@@ -5,14 +5,15 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848
-      config:
-        server-addr: 192.168.0.107:8848
-        file-extension: yaml
-        ext-config[0]:
-          data-id: mybatis.yml
-          group: DEFAULT_GROUP
-          refresh: true
+        server-addr: 192.168.0.200:8848
+
+      #config:
+        #server-addr: 192.168.0.200:8848
+       # file-extension: yaml
+        #ext-config[0]:
+          #data-id: mybatis.yml
+          #group: DEFAULT_GROUP
+          #refresh: true
   main:
     allow-bean-definition-overriding: true
   #profile
