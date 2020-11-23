@@ -19,7 +19,7 @@ public class DictionaryServiceImpl implements  DictionaryService{
 		DictDrugExample criteria = null;
 		if(drugCode !=null) {
 			 criteria = new DictDrugExample();
-			criteria.createCriteria().andDrugCodeEqualTo(drugCode);
+			 criteria.createCriteria().andDrugCodeEqualTo(drugCode);
 		}
 		//DictDrug dd = dictDrugMapper.selectById(1l);
 		//System.out.println(" dd:"+dd);

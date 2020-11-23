@@ -11,6 +11,7 @@ import com.yx.cdss.extract.provider.common.WResult;
 import com.yx.cdss.extract.provider.test.Person;
 import com.yx.cdss.extract.provider.test.Student;
 import com.yx.cdss.extract.provider.util.WFile;
+import io.swagger.annotations.ApiOperation;
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -23,16 +24,15 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,6 +47,7 @@ import java.util.Map;
  * @history v2.0
  *
  */
+
 @RestController
 public class FileOperateController {
 
@@ -54,6 +55,238 @@ public class FileOperateController {
     private RedisTemplate redisTemplate;
 
 
+	@GetMapping("/video/display")
+	@ApiOperation("断点续传記錄")
+	public void download(HttpServletRequest request, HttpServletResponse response) {
+		String path = "F:\\training-video\\demo.mp4";
+		File file = new File(path);
+		System.out.println("=======断点续传处理中");
+		downloadVideo(file, request, response);
+	}
+
+
+	public static void downloadVideo(File file, HttpServletRequest request, HttpServletResponse response) {
+		int contentLength = Integer.parseInt(String.valueOf(file.length()));
+		try {
+			RandomAccessFile randomFile = new RandomAccessFile(file, "r");
+			Throwable var6 = null;
+
+			try {
+				ServletOutputStream out = response.getOutputStream();
+				Throwable var8 = null;
+
+				try {
+					String range = request.getHeader("Range");
+					int start = 0;
+					int end = 0;
+					if (range != null && range.startsWith("bytes=")) {
+						String[] values = range.split("=")[1].split("-");
+						start = Integer.parseInt(values[0]);
+						if (values.length > 1) {
+							end = Integer.parseInt(values[1]);
+						}
+					}
+
+					int requestSize;
+					if (end != 0 && end > start) {
+						requestSize = end - start + 1;
+					} else {
+						requestSize = 2147483647;
+					}
+
+					response.setContentType("video/mp4");
+					response.setHeader("Accept-Ranges", "bytes");
+					if (range == null) {
+						response.setHeader("Content-length", String.valueOf(contentLength));
+					} else {
+						response.setStatus(206);
+						long requestStart = 0L;
+						long requestEnd = 0L;
+						String[] ranges = range.split("=");
+						if (ranges.length > 1) {
+							String[] rangeDatas = ranges[1].split("-");
+							requestStart = (long) Integer.parseInt(rangeDatas[0]);
+							if (rangeDatas.length > 1) {
+								requestEnd = (long) Integer.parseInt(rangeDatas[1]);
+							}
+						}
+
+						long length = 0L;
+						if (requestEnd > 0L) {
+							length = requestEnd - requestStart + 1L;
+							response.setHeader("Content-length", "" + length);
+							response.setHeader("Content-Range", "bytes " + requestStart + "-" + requestEnd + "/" + contentLength);
+						} else {
+							length = (long) contentLength - requestStart;
+							response.setHeader("Content-length", "" + length);
+							response.setHeader("Content-Range", "bytes " + requestStart + "-" + (contentLength - 1) + "/" + contentLength);
+						}
+					}
+
+					int needSize = requestSize;
+					byte[] buffer = new byte[4096];
+					randomFile.seek((long) start);
+
+					while (needSize > 0) {
+						int len = randomFile.read(buffer);
+						out.write(buffer, 0, len);
+						if (len < buffer.length) {
+							break;
+						}
+
+						needSize -= buffer.length;
+					}
+				} catch (Throwable var43) {
+					var8 = var43;
+					throw var43;
+				} finally {
+					if (out != null) {
+						if (var8 != null) {
+							try {
+								out.close();
+							} catch (Throwable var42) {
+								var8.addSuppressed(var42);
+							}
+						} else {
+							out.close();
+						}
+					}
+
+				}
+			} catch (Throwable var45) {
+				var6 = var45;
+				throw var45;
+			} finally {
+				if (randomFile != null) {
+					if (var6 != null) {
+						try {
+							randomFile.close();
+						} catch (Throwable var41) {
+							var6.addSuppressed(var41);
+						}
+					} else {
+						randomFile.close();
+					}
+				}
+
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+}
+
+	@RequestMapping(value = "/getVedio")
+	public void getVedio(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String path = "F:\\training-video\\demo.mp4";
+		BufferedInputStream bis = null;
+		try {
+			File file = new File(path);
+			if (file.exists()) {
+				long p = 0L;
+				long toLength = 0L;
+				long contentLength = 3L;
+				int rangeSwitch = 0; // 0,从头开始的全文下载；1,从某字节开始的下载（bytes=27000-）；2,从某字节开始到某字节结束的下载（bytes=27000-39000）
+				long fileLength;
+				String rangBytes = "";
+				fileLength = file.length();
+
+				// get file content
+				InputStream ins = new FileInputStream(file);
+				bis = new BufferedInputStream(ins);
+
+				// tell the client to allow accept-ranges
+				response.reset();
+				response.setHeader("Accept-Ranges", "bytes");
+
+				// client requests a file block download start byte
+				String range = request.getHeader("Range");
+				if (range != null && range.trim().length() > 0 && !"null".equals(range)) {
+					response.setStatus(javax.servlet.http.HttpServletResponse.SC_PARTIAL_CONTENT);
+					rangBytes = range.replaceAll("bytes=", "");
+					if (rangBytes.endsWith("-")) {  // bytes=270000-
+						rangeSwitch = 1;
+						p = Long.parseLong(rangBytes.substring(0, rangBytes.indexOf("-")));
+						contentLength = fileLength - p;  // 客户端请求的是270000之后的字节（包括bytes下标索引为270000的字节）
+					} else { // bytes=270000-320000
+						rangeSwitch = 2;
+						String temp1 = rangBytes.substring(0, rangBytes.indexOf("-"));
+						String temp2 = rangBytes.substring(rangBytes.indexOf("-") + 1, rangBytes.length());
+						p = Long.parseLong(temp1);
+						toLength = Long.parseLong(temp2);
+						contentLength = toLength - p + 1; // 客户端请求的是 270000-320000 之间的字节
+					}
+				} else {
+					contentLength = fileLength;
+				}
+
+				// 如果设设置了Content-Length，则客户端会自动进行多线程下载。如果不希望支持多线程，则不要设置这个参数。
+				// Content-Length: [文件的总大小] - [客户端请求的下载的文件块的开始字节]
+				response.setHeader("Content-Length", new Long(contentLength).toString());
+
+				// 断点开始
+				// 响应的格式是:
+				// Content-Range: bytes [文件块的开始字节]-[文件的总大小 - 1]/[文件的总大小]
+				if (rangeSwitch == 1) {
+					String contentRange = new StringBuffer("bytes ").append(new Long(p).toString()).append("-")
+							.append(new Long(fileLength - 1).toString()).append("/")
+							.append(new Long(fileLength).toString()).toString();
+					response.setHeader("Content-Range", contentRange);
+					bis.skip(p);
+				} else if (rangeSwitch == 2) {
+					String contentRange = range.replace("=", " ") + "/" + new Long(fileLength).toString();
+					response.setHeader("Content-Range", contentRange);
+					bis.skip(p);
+				} else {
+					String contentRange = new StringBuffer("bytes ").append("0-")
+							.append(fileLength - 1).append("/")
+							.append(fileLength).toString();
+					response.setHeader("Content-Range", contentRange);
+				}
+
+				String fileName = file.getName();
+				response.setContentType("application/octet-stream");
+				response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
+
+				OutputStream out = response.getOutputStream();
+				int n = 0;
+				long readLength = 0;
+				int bsize = 1024;
+				byte[] bytes = new byte[bsize];
+				if (rangeSwitch == 2) {
+					// 针对 bytes=27000-39000 的请求，从27000开始写数据
+					while (readLength <= contentLength - bsize) {
+						n = bis.read(bytes);
+						readLength += n;
+						out.write(bytes, 0, n);
+					}
+					if (readLength <= contentLength) {
+						n = bis.read(bytes, 0, (int) (contentLength - readLength));
+						out.write(bytes, 0, n);
+					}
+				} else {
+					while ((n = bis.read(bytes)) != -1) {
+						out.write(bytes, 0, n);
+					}
+				}
+				out.flush();
+				out.close();
+				bis.close();
+			} else {
+//                if (logger.isDebugEnabled()) {
+//                    logger.debug("Error: file " + path + " not found.");
+//                }
+			}
+		} catch (IOException ie) {
+			ie.printStackTrace();
+			// 忽略 ClientAbortException 之类的异常
+		} catch (Exception e) {
+			e.printStackTrace();
+//            logger.error(e.getMessage());
+		}
+
+
+	}
 	@PostMapping("/recv")
 	public WResult<Person> recv(@RequestBody Student student){
 		Map<String,Student> stuMap = new HashMap<>();

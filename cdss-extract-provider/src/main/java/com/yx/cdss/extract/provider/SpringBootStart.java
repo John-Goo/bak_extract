@@ -6,7 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 
-// com.yx.cdss.extract.provider.SpringBootStart
+//java -jar -Dspring.config.location=E:\\intelliJ-work\\emr-cdss-extract\\cdss-extract-provider\\target\\bootstrap.yml cdss-extract-provider.jar
+//java -jar -Dspring.config.location=./ cdss-extract-provider.jar
 @MapperScan("com.yx.cdss.extract.model.mapper")
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages="com.yx.cdss.extract.provider")
