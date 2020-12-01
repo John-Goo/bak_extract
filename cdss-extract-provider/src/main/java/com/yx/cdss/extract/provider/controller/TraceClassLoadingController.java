@@ -16,7 +16,7 @@ public class TraceClassLoadingController {
 
 
 
-    @WAuth(required = WAuthEnum.TRUE,value = WAuthEnum.ADMIN)
+    @WAuth(value = WAuthEnum.ADMIN)
     @ApiOperation(value = "演示class 加载过程" )
     @RequestMapping(value = "/classloading", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public WResult classLoad(@RequestBody CalcRequestBo requestBo) {

@@ -7,6 +7,7 @@ package com.yx.cdss.extract.provider.filter;
 
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,17 +24,29 @@ import java.lang.reflect.Method;
  * @Desc: TODO
  * @history v1.0
  */
-//@Component
+@Component
 public class AuthenticationInterceptor implements HandlerInterceptor {
 
     @Autowired
     private JwtValidator jwtValidator;
+    @Value("${spring.profiles.active}")
+    private String profileFlag;
 
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("handler>>>"+handler);
-        if (!(handler instanceof HandlerMethod)) {
+        if (!(handler instanceof HandlerMethod)
+                || "dev".equals(profileFlag)) {
+            return true;
+        }
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        System.out.println(handlerMethod.getMethod().getName()+",");
+        Method method = handlerMethod.getMethod();
+        WAuth wAuth = handlerMethod.getMethod().getAnnotation(WAuth.class);
+        // 没有加安全注解标签，匿名访问
+        if( wAuth == null ){
+            // 匿名访问
             return true;
         }
         String header = request.getHeader("Authorisation");
@@ -48,25 +61,20 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             throw new RuntimeException("JWT Token is incorrect");
         }
         System.out.println("==用户信息："+JSONObject.fromObject(jwtUser).toString());
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        System.out.println(handlerMethod.getMethod().getName()+",");
-        Method method = handlerMethod.getMethod();
-        WAuth wAuth = handlerMethod.getMethod().getAnnotation(WAuth.class);
-        WAuthEnum admin = wAuth.value();
-        // 权限断言
-        WAuthEnum requiredFlag = wAuth.required();
-        if(admin.equals(WAuthEnum.ADMIN)){
-            String role = WAuthEnum.ADMIN.toString();
-            if(role.equalsIgnoreCase(jwtUser.getRole())){
-                return true;
-            }else {
-                response.setHeader("Content-type", "text/html;charset=UTF-8");
-                response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(">>您没有权限访问！");
-                return false;
-            }
+
+        // 获取用户角色，一个用户可以有多种角色
+        String role = jwtUser.getRole();
+        String annotationVal = wAuth.value().toString().toLowerCase();
+        if(role.indexOf(annotationVal) != -1){
+            // 允许访问
+            return true;
+        }else{
+            response.setHeader("Content-type", "text/html;charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(">>您没有权限访问！");
+            return false;
         }
-        return true;
+
     }
 
     @Override

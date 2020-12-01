@@ -6,11 +6,10 @@ package com.yx.cdss.extract.provider.filter;
  * Created By 开源学社
  ==========================================================================*/
 public enum WAuthEnum {
-    TRUE,
-    FALSE,
     ANNO,
     NORMAL,
-    ADMIN
+    ADMIN,
+    SYNC
 
 
 }
