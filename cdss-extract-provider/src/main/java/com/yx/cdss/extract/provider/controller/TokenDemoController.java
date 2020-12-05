@@ -46,7 +46,7 @@ public class TokenDemoController {
         wResult.ok(tokenStr);
         jwtUser.setToken(tokenStr);
         // 存储缓存
-        RedisUtil.put(jwtUser.getUserId(),jwtUser);
+        RedisUtil.put(jwtUser.getUserId(),tokenStr);
         return wResult;
     }
 

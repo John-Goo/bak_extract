@@ -12,6 +12,8 @@ public class JwtUser {
     private String clientId;
     // 登录令牌
     private String token;
+    // 平台类型：1-APP(andriod,iOS),2-PC
+    private Integer platformType;
     // 创建时间
     private Long createTime;
 
@@ -64,6 +66,14 @@ public class JwtUser {
         this.createTime = createTime;
     }
 
+    public Integer getPlatformType() {
+        return platformType;
+    }
+
+    public void setPlatformType(Integer platformType) {
+        this.platformType = platformType;
+    }
+
     @Override
     public String toString() {
         return "JwtUser{" +
@@ -72,6 +82,7 @@ public class JwtUser {
                 ", userName='" + userName + '\'' +
                 ", clientId='" + clientId + '\'' +
                 ", token='" + token + '\'' +
+                ", platformType=" + platformType +
                 ", createTime=" + createTime +
                 '}';
     }

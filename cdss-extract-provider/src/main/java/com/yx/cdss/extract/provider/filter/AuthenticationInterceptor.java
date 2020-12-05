@@ -73,8 +73,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             return false;
         }
         String userId = jwtUser.getUserId();
-        JwtUser redisJwtUser = RedisUtil.get(userId);
-        if(redisJwtUser==null || !currToken.equals(redisJwtUser.getToken())){
+        String redisJwtUserToken = RedisUtil.get(userId);
+        if(redisJwtUserToken==null || !currToken.equals(redisJwtUserToken)){
             showTips(204,"访问Token不正确！",response);
             return false;
         }else if(!jwtUser.getClientId().equals(clientId)){

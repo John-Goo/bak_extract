@@ -41,8 +41,12 @@ public class JwtUtil {
             jwtUser.setUserName(body.getSubject());
             jwtUser.setUserId((String) body.get("userId"));
             jwtUser.setRoles((String) body.get("role"));
+            // 头部（公共）
             jwtUser.setClientId((String) body.get("clientId"));
+            // 头部（公共）
             jwtUser.setToken((String) body.get("token"));
+            // 头部（公共）
+            jwtUser.setPlatformType((Integer) body.get("platformType"));
             jwtUser.setCreateTime((Long) body.get("createTime"));
         }catch (Exception e) {
             System.out.println(e);
@@ -60,6 +64,7 @@ public class JwtUtil {
         claims.put("userId", jwtUser.getUserId());
         claims.put("role", jwtUser.getRoles());
         claims.put("clientId",jwtUser.getClientId());
+        claims.put("platformType",jwtUser.getPlatformType());
         claims.put("createTime",new Date().getTime());
         String tokenStr = Jwts.builder()
                 .setClaims(claims)

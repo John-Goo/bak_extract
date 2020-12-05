@@ -19,13 +19,13 @@ import java.util.Map;
  */
 public class RedisUtil {
 
-    private static Map<String,JwtUser> jwtUserMap = new HashMap<>();
+    private static Map<String,String> jwtUserMap = new HashMap<>();
 
-    public static void put(String userId,JwtUser jwtUser){
-        jwtUserMap.put(userId,jwtUser);
+    public static void put(String userId,String token){
+        jwtUserMap.put(userId,token);
     }
 
-    public static JwtUser get(String userId){
+    public static String get(String userId){
         return jwtUserMap.get(userId);
     }
 }
