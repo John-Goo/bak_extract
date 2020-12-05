@@ -1,6 +1,6 @@
 #server
 server:
-  port: 8087
+  port: 8080
 #logging
 logging:
   config: classpath:logback.xml
@@ -12,9 +12,9 @@ jasypt:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.0.93:3306/emr-cdss-extract?useUnicode=true&characterEncoding=utf-8&useTimezone=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://mysql.wit2cloud.com:3306/emr-cdss-extract?useUnicode=true&characterEncoding=utf-8&useTimezone=true&serverTimezone=GMT%2B8
     username: root
-    password: 123456
+    password: wit2cloud999
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       pool-name: DatebookHikariCP

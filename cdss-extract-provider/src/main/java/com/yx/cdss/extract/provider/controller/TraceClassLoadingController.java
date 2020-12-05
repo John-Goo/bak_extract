@@ -18,16 +18,20 @@ public class TraceClassLoadingController {
 
     @WAuth(value = WAuthEnum.ADMIN)
     @ApiOperation(value = "演示class 加载过程" )
-    @RequestMapping(value = "/classloading", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/my/classloading", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public WResult classLoad(@RequestBody CalcRequestBo requestBo) {
+        WResult wResult = WResult.newInstance();
         System.out.println("接收到参数===>"+requestBo);
         List<JStu> stuLsit = new ArrayList<>();
-        for (int i = 0; i <100 ; i++) {
-            JStu jStu = new JStu();
+        for (int i = 0; i <10 ; i++) {
+            JStu jStu = new JStu(requestBo.getId(),requestBo.getDataStr());
             stuLsit.add(jStu);
         }
-        return new WResult();
+        wResult.ok(stuLsit);
+        return wResult;
     }
+
+
 
 
 

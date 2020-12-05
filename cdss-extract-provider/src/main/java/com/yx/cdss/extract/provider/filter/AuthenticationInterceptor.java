@@ -5,6 +5,7 @@ package com.yx.cdss.extract.provider.filter;
  * Created By 开源学社
  ==========================================================================*/
 
+import com.yx.cdss.extract.provider.common.WResult;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.logging.Logger;
 
 /**
  * @author John Goo
@@ -27,6 +30,7 @@ import java.lang.reflect.Method;
 @Component
 public class AuthenticationInterceptor implements HandlerInterceptor {
 
+    private Logger logger = Logger.getLogger("AuthenticationInterceptor");
     @Autowired
     private JwtValidator jwtValidator;
     @Value("${spring.profiles.active}")
@@ -37,41 +41,56 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("handler>>>"+handler);
         if (!(handler instanceof HandlerMethod)
-                || "dev".equals(profileFlag)) {
+                || "local".equals(profileFlag)) {
             return true;
         }
+        String clientId = request.getHeader("clientId");
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         System.out.println(handlerMethod.getMethod().getName()+",");
         Method method = handlerMethod.getMethod();
         WAuth wAuth = handlerMethod.getMethod().getAnnotation(WAuth.class);
-        // 没有加安全注解标签，匿名访问
-        if( wAuth == null ){
+        // 没有加安全注解或ANNO标签，匿名访问
+        if( wAuth == null || "ANNO".contains(wAuth.value().toString())){
             // 匿名访问
             return true;
         }
-        String header = request.getHeader("Authorisation");
+        String currToken = request.getHeader("token");
+        System.out.println(">>>> 令牌字符："+currToken);
 
-        if (header == null || !header.startsWith("Token ")) {
-            throw new RuntimeException("JWT Token is missing");
+        if (!currToken.startsWith("wtoken-")) {
+            showTips(202,"Token格式不正确！",response);
+            return false;
         }
-        String token = header.substring(6);
-        JwtUser jwtUser = jwtValidator.validate(token);
 
-        if (jwtUser == null) {
-            throw new RuntimeException("JWT Token is incorrect");
+        /**
+         * 解密令牌
+         */
+        JwtUser jwtUser = JwtUtil.validate(currToken);
+
+        System.out.println(">>>> 令牌信息："+jwtUser);
+        if (jwtUser == null ) {
+            showTips(203,"非法Token！",response);
+            return false;
         }
-        System.out.println("==用户信息："+JSONObject.fromObject(jwtUser).toString());
+        String userId = jwtUser.getUserId();
+        JwtUser redisJwtUser = RedisUtil.get(userId);
+        if(redisJwtUser==null || !currToken.equals(redisJwtUser.getToken())){
+            showTips(204,"访问Token不正确！",response);
+            return false;
+        }else if(!jwtUser.getClientId().equals(clientId)){
+            showTips(205,"客户端Id发生变化,会话Token失效!",response);
+            return false;
+        }
 
         // 获取用户角色，一个用户可以有多种角色
-        String role = jwtUser.getRole();
-        String annotationVal = wAuth.value().toString().toLowerCase();
+        String role = jwtUser.getRoles();
+        System.out.println(">>>> 用户角色："+role);
+        String annotationVal = wAuth.value().toString().toUpperCase();
         if(role.indexOf(annotationVal) != -1){
             // 允许访问
             return true;
         }else{
-            response.setHeader("Content-type", "text/html;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(">>您没有权限访问！");
+            showTips(201,"没有权限访问！",response);
             return false;
         }
 
@@ -80,6 +99,19 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         System.out.println("=== postHandle ===");
+    }
+
+    public void showTips(Integer code,String msg,HttpServletResponse response){
+        WResult wResult = WResult.newInstance();
+        response.setHeader("Content-type", "application/json;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        wResult.failer(code,msg);
+        try {
+            response.getWriter().write(wResult.toString());
+            response.flushBuffer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

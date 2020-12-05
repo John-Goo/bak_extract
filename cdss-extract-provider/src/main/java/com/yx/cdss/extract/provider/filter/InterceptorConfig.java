@@ -5,7 +5,11 @@ package com.yx.cdss.extract.provider.filter;
  * Created By 开源学社
  ==========================================================================*/
 
+import com.yx.cdss.extract.provider.util.MD5Util;
+import com.yx.cdss.extract.provider.util.PropUtil;
+import io.jsonwebtoken.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -21,14 +25,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
 
+    @Value("${spring.profiles.active}")
+    private String profileEnv;
+
     @Autowired
     private AuthenticationInterceptor authenticationInterceptor;
 
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        JwtUtil.setProfileEnv(profileEnv);
         registry.addInterceptor(this.authenticationInterceptor)
-                .addPathPatterns("/**");    // 拦截所有请求
+                .excludePathPatterns("//wauth/token/*")
+                .addPathPatterns("/my/**");
+        // 拦截所有请求
         System.out.println("======== > interceptors =====");
     }
 }
