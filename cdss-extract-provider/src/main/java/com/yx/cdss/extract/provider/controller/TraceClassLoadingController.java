@@ -33,7 +33,8 @@ public class TraceClassLoadingController {
         /**
          * 同步数据
          */
-        String url = "http://localhost:8082/queryInfo";
+        //String url = "http://localhost:8082/queryInfo";
+        String url = "http://192.168.0.104:8082/queryInfo";
         StudentRequBo requBo = new StudentRequBo();
         requBo.setName("John");
         requBo.setIdCard("66666666661");

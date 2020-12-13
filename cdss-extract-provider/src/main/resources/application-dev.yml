@@ -18,6 +18,14 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       pool-name: DatebookHikariCP
+  data:
+    mongodb:
+      authentication-database: admin
+      database: workflow-audit
+      username: root
+      password: wit2cloud2020
+      host: 106.53.241.97
+      port: 27017
 
 #mybatis
 mybatis:

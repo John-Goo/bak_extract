@@ -8,6 +8,7 @@ import java.util.Random;
 import javax.annotation.Resource;
 
 import com.yx.cdss.extract.provider.common.WResult;
+import com.yx.cdss.extract.provider.serice.examine.AuditWorkflowService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,9 +32,25 @@ public class DictController {
 	
 	@Resource
 	private DictionaryService dictionaryService;
-	
-	
-	
+
+	@Resource
+	private AuditWorkflowService auditWorkflowService;
+
+	@ApiOperation(value = "查询字典888-药物",position = 4 )
+	@RequestMapping(value = "/queryDictDrug", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	public WResult<List<DictDrug>> queryDictDrug(@RequestBody QueryDictDrugReq requestBo) {
+		System.out.println("访问线程："+Thread.currentThread().getId());
+		WResult result = new WResult();
+		System.out.println(">>>接收到参数："+requestBo.getDrugCode());
+		List<DictDrug> ddList = dictionaryService.queryDictDrug(requestBo.getDrugCode());
+		result.ok(ddList);
+		// Adapter Pattern适应于接口不兼容的问题，采用适配器模式来进行转换
+		// 一个接口到另外一个接口，实现
+		//auditWorkflowService.insert(null);
+		return result;
+	}
+
+
 	@ApiOperation(value = "案例一：选择垃圾收集器")
 	@RequestMapping(value = "/selectCollector", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	public WResult selectCollector(@RequestParam String describe) {
@@ -167,20 +184,7 @@ public class DictController {
 	}
 	
 	
-	@ApiOperation(value = "查询字典888-药物",position = 4 )
-	@RequestMapping(value = "/queryDictDrug", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-	public WResult<List<DictDrug>> queryDictDrug(@RequestBody QueryDictDrugReq requestBo) {
-		System.out.println("访问线程："+Thread.currentThread().getId());
-		WResult result = new WResult();
-		System.out.println(">>>接收到参数："+requestBo.getDrugCode());
-		List<DictDrug> ddList = dictionaryService.queryDictDrug(requestBo.getDrugCode());
-		result.ok(ddList);
-		// Adapter Pattern适应于接口不兼容的问题，采用适配器模式来进行转换
-		// 一个接口到另外一个接口，实现
 
-		return result;
-	}
-	
 	
 	
 	@ApiOperation(value = "插入字典-药物",position = 5 )

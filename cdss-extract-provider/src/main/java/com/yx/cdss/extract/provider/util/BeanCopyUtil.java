@@ -56,7 +56,7 @@ public class BeanCopyUtil {
 	}
 
 
-	public static Object copyBean(Object source, Class destCls){
+	public static <T> T copyBean(Object source, Class<T> destCls){
 		Object dest = null;
 		try {
 			dest = destCls.newInstance();
@@ -68,7 +68,7 @@ public class BeanCopyUtil {
 		} catch (NoSuchMethodException | InstantiationException e) {
 			e.printStackTrace();
 		}
-		return  dest;
+		return (T) dest;
 	}
 
 	public static void main(String[] args) {

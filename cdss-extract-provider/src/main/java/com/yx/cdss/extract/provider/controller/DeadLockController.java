@@ -1,15 +1,22 @@
 
 package com.yx.cdss.extract.provider.controller;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.alibaba.fastjson.JSON;
+import com.yx.cdss.extract.provider.bo.StudentRequBo;
+import com.yx.cdss.extract.provider.common.WR;
+import com.yx.cdss.extract.provider.common.WResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.*;
 
 import com.yx.cdss.extract.provider.serice.cure.ResponseBo;
 
 import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONObject;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @ClassName: DemoController
@@ -22,6 +29,36 @@ import net.sf.json.JSONObject;
  */
 @RestController
 public class DeadLockController {
+	@Autowired
+	private LoadBalancerClient loadBalancerClient;
+	@Autowired
+	private RestTemplate restTemplate;
+	//@Value("${spring.application.name}")
+	//private String appName;
+
+	@ApiOperation(value = "演示动态获取Nacos节点Ip")
+	@GetMapping("/echo/app-name")
+	public WResult echoAppName(){
+		WResult result = WResult.newInstance();
+		//Access through the combination of LoadBalanceClient and RestTemplate
+		String projId = "file-provider";
+		ServiceInstance serviceInstance = loadBalancerClient.choose(projId);
+		String url = String.format("http://%s:%s/queryInfo",serviceInstance.getHost(),serviceInstance.getPort());
+		System.out.println(">>> request url:" +url);
+		StudentRequBo studentRequBo = new StudentRequBo();
+		studentRequBo.setAddr("深圳");
+		studentRequBo.setIdCard("90010000001");
+		studentRequBo.setName("谷海江");
+		result = restTemplate.postForObject(url,studentRequBo,WResult.class);
+		//result = restTemplate.getForObject(path,WResult.class,studentRequBo);
+		System.out.println(" 请求结果数据："+ JSON.toJSON(result));
+		return result;
+	}
+	//Instantiate RestTemplate Instance
+	@Bean
+	public RestTemplate restTemplate(){
+		return new RestTemplate();
+	}
 
 	@ApiOperation(value = "模拟线程死锁", notes = "模拟线程死锁")
 	@RequestMapping(value = "/simulateDeadLock", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

@@ -14,6 +14,7 @@ import java.util.UUID;
  * @Desc: TODO
  * @history v1.0
  */
+
 public class test1 {
     public static void main(String[] args) {
         String uuid = UUID.randomUUID().toString().replace("-","");
