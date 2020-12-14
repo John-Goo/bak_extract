@@ -22,6 +22,7 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -33,8 +34,8 @@ import java.util.Date;
  * @Desc: TODO
  * @history v1.0
  */
-
-public abstract class WAuditWorkFlowTemplate {
+@Component
+public  class WAuditWorkFlowTemplate {
 
     /**
      * 审核内容表
@@ -67,7 +68,7 @@ public abstract class WAuditWorkFlowTemplate {
         return adr.getId().toString();
     }
 
-    private String update(AuditContent auditContent){
+    public String update(AuditContent auditContent){
         // 创建条件对象
         Criteria criteria = Criteria.where("contentId").is(auditContent.getContentId());
         // 创建查询对象，然后将条件对象添加到其中
@@ -90,7 +91,7 @@ public abstract class WAuditWorkFlowTemplate {
         return null;
     }
 
-    private String update(AuditDetailRecord auditDetailRecord){
+    public String update(AuditDetailRecord auditDetailRecord){
         // 创建条件对象
         Criteria criteria = Criteria
                 .where("contentId").is(auditDetailRecord.getContentId())
@@ -114,7 +115,8 @@ public abstract class WAuditWorkFlowTemplate {
 
         // 执行更新，如果没有找到匹配查询的文档，则创建并插入一个新文档
         UpdateResult result = mongoTemplate.upsert(query, update, AuditContent.class, _C_AUDIT_CONTENT);
-        return null;
+        System.out.println(JSON.toJSONString(result));
+        return result.getUpsertedId().toString();
     }
 
     public String modifyAuditStatus(AuditStatusRequBo audit){

@@ -18,14 +18,14 @@ import org.springframework.stereotype.Component;
  * @history v1.0
  */
 @Component
-public class AuditWorkflowService extends WAuditWorkFlowTemplate {
+public class AuditWorkflowService {
 
     public AuditWorkflowService(){
         System.out.println("============ 初始化 ==============");
     }
 
     public String addAuditContent(AuditContent auditContent){
-        String workflowSeq = workflowSeqUtil.generate();
+      /*  String workflowSeq = workflowSeqUtil.generate();
         auditContent.setSerialNumber(workflowSeq);
         String contentId = insert(auditContent);
         // 发布员
@@ -48,7 +48,8 @@ public class AuditWorkflowService extends WAuditWorkFlowTemplate {
        // auditor.setAuditFixedNodeName("审核员");
        // auditor.setAuditFixedNodeStep(3);
         insert(auditor);
-        return contentId;
+        return contentId;*/
+      return null;
     }
 
 }

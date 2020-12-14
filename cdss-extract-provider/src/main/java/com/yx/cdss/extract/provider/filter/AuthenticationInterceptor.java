@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  * @Desc: TODO
  * @history v1.0
  */
-@Component
+//@Component
 public class AuthenticationInterceptor implements HandlerInterceptor {
 
     private Logger logger = Logger.getLogger("AuthenticationInterceptor");
