@@ -1,13 +1,13 @@
 package org.demo.crawler;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.geccocrawler.gecco.annotation.PipelineName;
 import com.geccocrawler.gecco.pipeline.Pipeline;
 import com.geccocrawler.gecco.request.HttpRequest;
 import com.geccocrawler.gecco.scheduler.SchedulerContext;
 import com.geccocrawler.gecco.spider.HrefBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jackie on 18/1/15.

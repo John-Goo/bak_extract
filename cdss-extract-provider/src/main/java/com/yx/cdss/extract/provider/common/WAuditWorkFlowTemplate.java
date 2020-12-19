@@ -6,9 +6,7 @@ package com.yx.cdss.extract.provider.common;
  ==========================================================================*/
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.mongodb.client.result.UpdateResult;
-import com.yx.cdss.extract.model.entity.DictDrug;
 import com.yx.cdss.extract.model.mapper.DictDrugMapper;
 import com.yx.cdss.extract.provider.bo.AuditContent;
 import com.yx.cdss.extract.provider.bo.AuditDetailRecord;
@@ -16,9 +14,6 @@ import com.yx.cdss.extract.provider.bo.AuditStatusRequBo;
 import com.yx.cdss.extract.provider.util.BeanCopyUtil;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
-import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;

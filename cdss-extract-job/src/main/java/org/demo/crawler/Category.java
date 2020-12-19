@@ -1,11 +1,11 @@
 package org.demo.crawler;
 
-import java.util.List;
-
 import com.geccocrawler.gecco.annotation.HtmlField;
 import com.geccocrawler.gecco.annotation.Text;
 import com.geccocrawler.gecco.spider.HrefBean;
 import com.geccocrawler.gecco.spider.HtmlBean;
+
+import java.util.List;
 
 /**
  * Created by jackie on 18/1/15.

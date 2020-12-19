@@ -4,27 +4,15 @@ import com.alibaba.fastjson.JSON;
 import com.yx.cdss.extract.model.entity.DictDrug;
 import com.yx.cdss.extract.provider.bo.AuditContent;
 import com.yx.cdss.extract.provider.bo.AuditDetailRecord;
-import com.yx.cdss.extract.provider.bo.QueryDictDrugReq;
 import com.yx.cdss.extract.provider.common.WAuditWorkFlowTemplate;
 import com.yx.cdss.extract.provider.common.WResult;
 import com.yx.cdss.extract.provider.common.WorkflowSeqUtil;
-import com.yx.cdss.extract.provider.common.lock.LockThread1;
-import com.yx.cdss.extract.provider.common.lock.LockThread2;
-import com.yx.cdss.extract.provider.common.lock.MyResource;
-import com.yx.cdss.extract.provider.serice.dict.DictionaryService;
 import com.yx.cdss.extract.provider.serice.examine.AuditWorkflowService;
-import com.yx.cdss.extract.provider.util.BeanCopyUtil;
-import com.yx.cdss.extract.provider.util.DemoUtil;
-import com.yx.cdss.extract.provider.util.SpringUtil;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 @RestController
 //@Api(value = "审核工作流",tags = "审核工作流")

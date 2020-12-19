@@ -2,8 +2,9 @@ package com.yx.cdss.extract.model.mapper;
 
 import com.yx.cdss.extract.model.entity.InspectMedicalOrders;
 import com.yx.cdss.extract.model.entity.InspectMedicalOrdersExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface InspectMedicalOrdersMapper {
     /**

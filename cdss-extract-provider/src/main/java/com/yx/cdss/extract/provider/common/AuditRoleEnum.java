@@ -1,7 +1,5 @@
 package com.yx.cdss.extract.provider.common;
 
-import io.swagger.models.auth.In;
-
 /*==========================================================================
  * Copyright (C) Wit2Cloud Co.,Ltd
  * All Rights Reserved.

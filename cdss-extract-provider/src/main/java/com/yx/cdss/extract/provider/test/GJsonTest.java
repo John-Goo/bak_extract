@@ -6,7 +6,6 @@ package com.yx.cdss.extract.provider.test;
  ==========================================================================*/
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 
 /**
  * @author John Goo

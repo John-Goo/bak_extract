@@ -6,24 +6,21 @@
  *****************************************************************************/
 package com.yx.cdss.extract.provider.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-
+import com.yx.cdss.extract.provider.bo.CureNurseMedicalOrderBo;
+import com.yx.cdss.extract.provider.serice.cure.ResponseBo;
+import com.yx.cdss.extract.provider.util.BeanCopyUtil;
+import com.yx.cdss.extract.provider.util.SpringUtil;
+import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yx.cdss.extract.provider.bo.CureNurseMedicalOrderBo;
-import com.yx.cdss.extract.provider.serice.cure.ResponseBo;
-import com.yx.cdss.extract.provider.util.BeanCopyUtil;
-import com.yx.cdss.extract.provider.util.SpringUtil;
-
-import io.swagger.annotations.ApiOperation;
-import net.sf.json.JSONObject;
+import java.io.File;
+import java.io.FileInputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * @ClassName: CustomerController

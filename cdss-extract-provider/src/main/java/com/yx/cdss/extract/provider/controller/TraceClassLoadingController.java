@@ -4,8 +4,6 @@ import com.yx.cdss.extract.provider.bo.CalcRequestBo;
 import com.yx.cdss.extract.provider.bo.JStu;
 import com.yx.cdss.extract.provider.bo.StudentRequBo;
 import com.yx.cdss.extract.provider.common.WResult;
-import com.yx.cdss.extract.provider.filter.WAuth;
-import com.yx.cdss.extract.provider.filter.WAuthEnum;
 import com.yx.cdss.extract.provider.util.WSyncDataHelper;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;

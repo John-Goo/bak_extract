@@ -12,7 +12,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages="com.yx.cdss.extract.provider")
  public class SpringBootStart {
-	
 	/**
 	 * -XX:+UseConcMarkSweepGC
 	 * -XX:+HeapDumpOnOutOfMemoryError

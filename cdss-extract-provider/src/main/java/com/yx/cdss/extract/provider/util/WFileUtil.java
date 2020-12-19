@@ -5,7 +5,6 @@ package com.yx.cdss.extract.provider.util;
  * Created By 开源学社
  ==========================================================================*/
 
-import io.swagger.models.auth.In;
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
 import org.apache.http.client.methods.CloseableHttpResponse;

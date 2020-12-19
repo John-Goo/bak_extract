@@ -8,7 +8,6 @@ package com.yx.cdss.extract.provider.test;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
-import net.sf.json.groovy.GJson;
 
 /**
  * @author John Goo

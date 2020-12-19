@@ -1,8 +1,8 @@
 package com.yx.cdss.extract.provider.test;
 
-import java.util.Random;
-
 import com.yx.cdss.extract.provider.bo.SensorBo;
+
+import java.util.Random;
 
 public class RequestBo implements SensorBo{
 	private String name;

@@ -4,8 +4,6 @@ import com.yx.cdss.extract.provider.bo.CalcRequestBo;
 import com.yx.cdss.extract.provider.bo.JStu;
 import com.yx.cdss.extract.provider.common.WResult;
 import com.yx.cdss.extract.provider.filter.*;
-import io.jsonwebtoken.Jwt;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

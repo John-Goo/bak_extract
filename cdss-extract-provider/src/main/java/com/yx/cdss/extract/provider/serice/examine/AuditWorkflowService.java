@@ -6,8 +6,6 @@ package com.yx.cdss.extract.provider.serice.examine;
  ==========================================================================*/
 
 import com.yx.cdss.extract.provider.bo.AuditContent;
-import com.yx.cdss.extract.provider.bo.AuditDetailRecord;
-import com.yx.cdss.extract.provider.common.WAuditWorkFlowTemplate;
 import org.springframework.stereotype.Component;
 
 /**

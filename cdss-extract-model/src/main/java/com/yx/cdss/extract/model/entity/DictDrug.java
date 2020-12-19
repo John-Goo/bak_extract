@@ -2,11 +2,9 @@ package com.yx.cdss.extract.model.entity;
 
 import lombok.Data;
 import org.bson.types.ObjectId;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.annotation.sql.DataSourceDefinition;
 import java.io.Serializable;
 import java.util.Date;
 

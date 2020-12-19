@@ -5,9 +5,6 @@ package com.yx.cdss.extract.provider.common;
  * Created By 开源学社
  ==========================================================================*/
 
-import com.yx.cdss.extract.provider.serice.calcu.CalculateService;
-import com.yx.cdss.extract.provider.util.SpringUtil;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;

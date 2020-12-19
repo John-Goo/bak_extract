@@ -1,31 +1,24 @@
 package com.yx.cdss.extract.provider.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Resource;
-
-import com.yx.cdss.extract.provider.common.WResult;
-import com.yx.cdss.extract.provider.serice.examine.AuditWorkflowService;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.yx.cdss.extract.model.entity.DictDrug;
 import com.yx.cdss.extract.provider.bo.QueryDictDrugReq;
+import com.yx.cdss.extract.provider.common.WResult;
 import com.yx.cdss.extract.provider.common.lock.LockThread1;
 import com.yx.cdss.extract.provider.common.lock.LockThread2;
 import com.yx.cdss.extract.provider.common.lock.MyResource;
 import com.yx.cdss.extract.provider.serice.dict.DictionaryService;
+import com.yx.cdss.extract.provider.serice.examine.AuditWorkflowService;
 import com.yx.cdss.extract.provider.util.BeanCopyUtil;
 import com.yx.cdss.extract.provider.util.DemoUtil;
 import com.yx.cdss.extract.provider.util.SpringUtil;
-
 import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 @RestController
 public class DictController {

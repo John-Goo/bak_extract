@@ -6,10 +6,6 @@ package com.yx.cdss.extract.provider.bo;
  ==========================================================================*/
 
 import lombok.Data;
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-
-import java.util.Date;
 
 /**
  * @author John Goo

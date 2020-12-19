@@ -3,8 +3,9 @@ package com.yx.cdss.extract.model.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yx.cdss.extract.model.entity.DictDrug;
 import com.yx.cdss.extract.model.entity.DictDrugExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface DictDrugMapper extends BaseMapper<DictDrug> {
     /**

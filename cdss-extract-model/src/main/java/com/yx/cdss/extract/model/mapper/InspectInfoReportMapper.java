@@ -2,8 +2,9 @@ package com.yx.cdss.extract.model.mapper;
 
 import com.yx.cdss.extract.model.entity.InspectInfoReport;
 import com.yx.cdss.extract.model.entity.InspectInfoReportExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface InspectInfoReportMapper {
     /**

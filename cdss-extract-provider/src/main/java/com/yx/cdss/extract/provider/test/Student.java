@@ -7,8 +7,6 @@ package com.yx.cdss.extract.provider.test;
 
 import lombok.Data;
 
-import javax.annotation.sql.DataSourceDefinition;
-
 /**
  * @author John Goo
  * @version 1.0

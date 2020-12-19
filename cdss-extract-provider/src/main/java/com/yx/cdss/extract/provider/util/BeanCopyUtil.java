@@ -1,13 +1,13 @@
 
 package com.yx.cdss.extract.provider.util;
 
+import com.yx.cdss.extract.model.entity.DictDrug;
+import org.apache.commons.beanutils.PropertyUtils;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.yx.cdss.extract.model.entity.DictDrug;
-import org.apache.commons.beanutils.PropertyUtils;
 
 
 public class BeanCopyUtil {

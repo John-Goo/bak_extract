@@ -5,8 +5,6 @@ package com.yx.cdss.extract.provider.test;
  * Created By 开源学社
  ==========================================================================*/
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-
 /**
  * @author John Goo
  * @version 1.0

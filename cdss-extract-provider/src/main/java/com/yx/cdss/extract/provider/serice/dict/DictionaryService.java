@@ -1,8 +1,8 @@
 package com.yx.cdss.extract.provider.serice.dict;
 
-import java.util.List;
-
 import com.yx.cdss.extract.model.entity.DictDrug;
+
+import java.util.List;
 
 public interface DictionaryService {
 	

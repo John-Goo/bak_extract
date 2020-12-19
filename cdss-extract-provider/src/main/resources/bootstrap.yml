@@ -1,7 +1,7 @@
 #Spring
 spring:
   application:
-    name: cdss-extract-provider
+    name: cdss-extract-provider1
   cloud:
     nacos:
       discovery:
